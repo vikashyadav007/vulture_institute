@@ -1,24 +1,27 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:crackit/DoubtsLanding.dart';
-import 'package:crackit/FirebaseRealTimeDemo.dart';
+import 'package:crackit/Address.dart';
+import 'package:crackit/Payment.dart';
 import 'package:crackit/Practice.dart';
+import 'package:crackit/Pricing.dart';
 import 'package:crackit/SplashView.dart';
-import 'package:crackit/demoClasses.dart';
-import 'package:crackit/doubts.dart';
+import 'package:crackit/TestPage.dart';
+import 'package:crackit/TrialModeEndMessage.dart';
 import 'package:crackit/doubtsSelection.dart';
 import 'package:crackit/liveClasses.dart';
 import 'package:crackit/loginOption.dart';
+import 'package:crackit/paymentSchema.dart';
 import 'package:crackit/stateModel.dart';
 import 'package:crackit/stateWidget.dart';
+import 'package:crackit/studentInfo.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:crackit/updateInfo.dart';
 import 'package:crackit/selectSubject.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:crackit/colorValue.dart';
-
 import 'package:crackit/values.dart';
+import 'package:crackit/showTrialDialog.dart';
+import 'selectSubjectSub.dart';
 
 
 
@@ -33,13 +36,13 @@ class Home extends StatefulWidget{
 }
 
 class HomeState extends State<Home>{
-  static StateModel appState;
+  StateModel appState;
   bool _isLoading = false;
   bool _isVerified;
   HomeState(this._isVerified);
+  StudentInfo student;
 
   Widget singleView(var item){
-
 return Padding(
   padding: EdgeInsets.all(15),
   child:Card(
@@ -50,28 +53,15 @@ return Padding(
           child: InkWell(
             onTap: ()=>  Navigator.push(context, (MaterialPageRoute(builder: (context) => item['methods'],))),
             child: GridTile(
-              
-              // footer: Container(
-              //   color: primaryColor,
-              //   child: ListTile(
-              //     title: Text(item["item"],
-              //     style: TextStyle(
-              //       color:Colors.white,
-              //       fontWeight: FontWeight.w800,
-              //     )
-              //     ),
-              //   ),
-              // ),
-              // child: Image.asset(item["image"],fit: BoxFit.cover,),
               child:Container(
+                height: 10,
+                width: 10,
                 color: primaryColor,
                 child:
               Column(
                 children:[
                   Expanded(
                     flex: 2,
-                    //child: Image.asset(item["image"],width: 80,height: 80,)
-                    
                     child:Icon(item['image'],size: 60,color: Colors.blue,),
                     ),
                     Expanded(
@@ -94,87 +84,32 @@ return Padding(
           ),
         ),
     ),);
-
-
-
-    //  return Card(
-    //   child: Hero(
-    //     tag: item,
-    //     child: Material(
-    //       child: InkWell(
-    //         onTap: ()=> null,
-    //         child: GridTile(
-              
-    //           child: 
-    //          GestureDetector(
-    //            onTap: (){
-    //              Navigator.push(context, (MaterialPageRoute(builder: (context) => item['methods'],)));
-    //            },
-    //            child:
-    //             Container( 
-    //             color:item["color"],
-    //             child:
-    //             Center(
-    //             child:Text(item["item"],
-    //               style: TextStyle(
-    //                color:Colors.black,
-    //                 fontWeight: FontWeight.w800,
-    //                 fontSize: 35,
-    //               )
-    //               ), 
-    //           )
-    //           ),
-    //          ),
-    //         ),
-    //       ),
-    //     ),
-    //   ),
-    // );
   }
+
                        
 var items=[
-  //Icons.airplay
     {"item":"Video Lectures","image":Icons.video_library,"methods":SelectSubject(VIDEOLECTURE)},
     {"item":"Study Material","image":Icons.book,"methods":SelectSubject(STUDYMATERIAL)}, 
     {"item":"Test Series","image":Icons.view_list,"methods":Practice()},
+    // {"item":"Test Series","image":Icons.view_list,"methods":TestPage()},
     {"item":"Doubts","image":Icons.question_answer,"methods":DoubtSelection()},
     {"item":"Test Series\n solutions","image":Icons.format_list_numbered,"methods":Practice()},
     {"item":"Live Classes","image":Icons.desktop_windows,"methods":LiveClasses()},
+    {"item":"Pricing","image":Icons.monetization_on,"methods":Pricing()},
+   {"item":"Payment","image":Icons.account_balance_wallet,"methods":Payment()},
 ];
-// var items=[
-//     {"item":"Video Lectures","image":"assets/education.png","methods":SelectSubject("Video Lectures")},
-//     {"item":"Study Material","image":"assets/2material.png","methods":SelectSubject("Study Material")}, 
-//     {"item":"Test Series","image":"assets/2exam2.png","methods":SelectSubject("Test Series")},
-//     {"item":"Doubts","image":"assets/2qa.png","methods":Doubts()},
-//     {"item":"Test Series\n solutions","image":"assets/2qaAns.png","methods":Practice()},
-//     {"item":"Live Classes","image":"assets/2online.png","methods":LiveClasses()},
-// ];
-// var items=[
-//     {"item":"Video Lectures","image":"assets/elearning-2.png","methods":SelectSubject("Demo Classes")},
-//     {"item":"Study Material","image":"assets/study-1.png","methods":SelectSubject("Study Material")}, 
-//     {"item":"Test Series","image":"assets/learning.png","methods":SelectSubject("Dpp")},
-//     {"item":"Doubts","image":"assets/qa-1.png","methods":Doubts()},
-//     {"item":"Test Series\n solutions","image":"assets/test.png","methods":Practice()},
-//     {"item":"Live Classes","image":"assets/online-learning-1.png","methods":LiveClasses()},
-// ];
-// var items=[
-//     {"item":"Study Material","color":Colors.amber,"methods":SelectSubject("Study Material")}, 
-//     {"item":"DPP","color":Colors.lightGreen,"methods":SelectSubject("Dpp")},
-//     {"item":"Practice","color":Colors.lightGreen,"methods":Practice()},
-//     {"item":"Doubts","color":Colors.amber,"methods":Doubts()},
-//     {"item":"Live Classes","color":Colors.amber,"methods":LiveClasses()},
-//      {"item":"Demo Classes","color":Colors.lightGreen,"methods":SelectSubject("Demo Classes")},
-
-// ];
-
 
   _gridView(){
-      return GridView.builder(
+      return 
+      Container(
+        color:Colors.white12,
+        child:GridView.builder(
       itemCount: items.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
       itemBuilder: (BuildContext context,int index){
         return singleView(items[index]);
       },
+      )
       );
   }
 
@@ -200,7 +135,8 @@ var items=[
                           shape: BoxShape.circle,
                           image: DecorationImage(
                               image: appState.user.photoUrl ==null?AssetImage('assets/download.png'):
-                              NetworkImage(appState.user.photoUrl)),
+                              NetworkImage(appState.user.photoUrl)
+                              ),
                         ),
                       ),
                       Padding(
@@ -213,7 +149,8 @@ var items=[
                       Padding(
                         padding: EdgeInsets.only(top: 8),
                       ),
-                      Text(appState.user.email,
+                      Text(
+                        appState.user.email,
                           style: TextStyle(fontSize: 12, color: Colors.black))
                     ],
                   ),
@@ -231,12 +168,12 @@ var items=[
                 children: <Widget>[
                   ListTile(
                     title: Text(
-                      'Update Info',
+                      'View Info',
                       style: style,
                     ),
                     trailing: Icon(Icons.info),
                     onTap: () {
-                     Navigator.of(context).push(MaterialPageRoute(builder: (context)=>UpdateInfo()));
+                    //  Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ViewInfo()));
                     },
                   ),
                   Divider(
@@ -262,6 +199,29 @@ var items=[
                   
                   Divider(
                     height: 4,
+                  ),
+                   ListTile(
+                     onTap: (){
+                       Navigator.push(context, MaterialPageRoute(builder: (context)=>Payment()));
+                     },
+                    title: Text(
+                      'Pay fee',
+                      style: style,
+                    ),
+                    trailing: Icon(Icons.payment),
+                  ),
+                  Divider(
+                    height: 4,
+                  ),
+                   ListTile(
+                     onTap: (){
+                       Navigator.push(context, MaterialPageRoute(builder: (context)=>Pricing()));
+                     },
+                    title: Text(
+                      'Pricing',
+                      style: style,
+                    ),
+                    trailing: Icon(Icons.attach_money),
                   ),
                 ],
               ),
@@ -304,49 +264,44 @@ var items=[
   }
 
 _fetchFirestoreData() async{
-    // setState(() {
-    //   appState.isloading = true;
-    // });
-    var data =  Firestore.instance.collection("Student Info").document("ONnnBBbXJTOVMTDmODqs");
-    data.get().then((value){
-       if(value.data == null){
-         setState(() {
-           appState.isloading = false;
-         });
-         Navigator.push(context, MaterialPageRoute(builder: (context)=>UpdateInfo()));
-        }
-        else{
-          setState(() {
-          Map<String,dynamic> mapValue = value.data;
-          List<String> uidList = mapValue.keys.toList();
-          String userUid = appState.user.uid.toString();
-          bool flag = false;
-          for(String id in uidList){
-              if(id.compareTo(userUid)==0){
-                
-               flag = true;
-               break;
-              }
-          }
-          if(flag==true){
-            setState(() {
+    Firestore.instance
+    .collection('studentProfile')
+    .where("email",isEqualTo: appState.user.email)
+    .snapshots()
+    .listen((data) {
+      if(data.documents.length==0){
+        new GoogleSignIn().signOut();
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginOption()));
+      }else{
+       data.documents.forEach((element) {
+         Map<String,dynamic> map = element.data;
+        UserAddress useraddress = new UserAddress(map['address']['fullAddress'], map['address']["state"], map['address']["country"], map['address']["district"], map['address']["postalCode"], map['address']["latitude"], map['address']["longitude"]);
+         List<dynamic> paymentList =  map['payments'];
+          student = new  StudentInfo(
+           map['uid'], 
+           map['email'],
+            map['studentName'], 
+            map['fatherName'], 
+            map['phoneNumber'], 
+            useraddress, 
+            map['standard'], 
+            map['Subscribed'].toString().compareTo("true")==0?true:false,
+            map['trialPeriod'].toString().compareTo("true")==0?true:false,
+            element.documentID,
+            paymentList,
+            );
+       });
+           setState(() {
              _isVerified = true;
-             appState.isloading = false;
-              //print("This comes here also 245 ");
+            appState.studentInfo = student;
+            _isLoading = false;
             });
-          }else{
-               Navigator.push(context, MaterialPageRoute(builder: (context)=>UpdateInfo()));
-          }
-          });
-        }     
-    });
+      }
+     });
   }
 
-
-
  Widget _buildContent(){
-   print(_isVerified);
-      if(appState.isloading==true){
+      if(appState.isloading==true || _isLoading ==true){
         return _buildLoadingContainer();
       }else
       if(!appState.isloading && appState.user==null){
@@ -354,22 +309,22 @@ _fetchFirestoreData() async{
       }else{
         if(_isVerified==false){
           setState(() {
-            appState.isloading = true;
+           _isLoading = true;
           });
           _fetchFirestoreData();
           return _buildLoadingContainer();
         }else{
-           
-          return _buildstory();
-        }
-      }
-    }
+          // print(appState.studentInfo.isSubscribed);
+          if(appState.studentInfo.isSubscribed==false){
+            if(appState.studentInfo.trialPeriod==true){
+             Future.delayed(Duration(seconds: 2),(){
+                showTrialDialog(context);
+          });
+            return _buildstory();
+          }else{
+           return Scaffold(
 
-    Widget _buildstory({Widget body}){
-      return 
-      Scaffold(
-
-       drawer: _drawer(),
+        drawer: _drawer(),
     appBar: AppBar(
       title: Text("Vulture Institute"),
     ),
@@ -379,51 +334,70 @@ _fetchFirestoreData() async{
         exit(0);
       },
       child:
-      Padding(padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+      Padding(
+        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+        
+      child: TrialModeEndMessage(),)
+    
+    )
+    );
+     
+          }
+          }else{
+               return _buildstory();
+          }
+         
+         
+         
+        }
+      }
+    }
+
+    Widget _buildstory({Widget body}){
+      return  Scaffold(
+
+        drawer: _drawer(),
+    appBar: AppBar(
+      title: Text("Vulture Institute"),
+    ),
+    body:
+    WillPopScope(
+      onWillPop: (){
+        exit(0);
+      },
+      child:
+      Padding(
+        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+        
       child: _gridView(),)
     
     )
     );
+     
     }
 
 
      Widget  _buildLoadingContainer(){
-      return Scaffold(
-        body:WillPopScope(
-          onWillPop: (){
-            exit(0);
-          },
-          child: Stack(
+      return Stack(
             children:[
                SplashView(),
                Center(
                   child: CircularProgressIndicator(),
                   )
             ]
-          )
-          //SplashView()
-      //   Center(
-      //   child: CircularProgressIndicator(),
-      // )
-      ));
+          );
     }
 
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    // setState(() {
-    //  _isLoading = true;
-    // });
+    
   }
 
   @override
   Widget build(BuildContext context) {
-
     appState = StateWidget.of(context).state;
     return _buildContent();
-    
   }
-
 }

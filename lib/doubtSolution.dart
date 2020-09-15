@@ -18,7 +18,6 @@ Map data;
      @override
   void initState() {
     super.initState();
-
   }
 
   Widget _showOriginal(){

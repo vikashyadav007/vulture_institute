@@ -1,17 +1,13 @@
-import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:crackit/SplashView.dart';
 import 'package:crackit/colorValue.dart';
 import 'package:crackit/doubts.dart';
-import 'package:crackit/loginOption.dart';
 import 'package:crackit/resolvedDoubt.dart';
 import 'package:crackit/stateModel.dart';
 import 'package:crackit/stateWidget.dart';
 import 'package:crackit/unResolvedDoubt.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-
+import 'package:crackit/TrialModeEndMessage.dart';
 
 class DoubtSelection extends StatefulWidget{
   @override
@@ -44,7 +40,6 @@ getData() async{
         . where("isResolved",isEqualTo: false)
         .snapshots()
         .listen((data) {
-            print(data.documents.length);
              setState(() {
                 unResolved = data.documents.length;
             });
@@ -61,7 +56,6 @@ getData() async{
   . where("isResolved",isEqualTo: true)
   .snapshots()
   .listen((data) {
-    print(data.documents.length);
     setState(() {
       resolved = data.documents.length;
     });
@@ -193,8 +187,7 @@ getData() async{
       },
       child:
       Padding(padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-      child: _createContent(),)
-    
+      child:  _createContent(),)
     )
     );
     }
@@ -214,8 +207,17 @@ Widget _buildContent(){
             getData();
         return _buildLoadingContainer();
       }
-    else{
-        return _buildstory();
+    else {
+        if(appState.studentInfo.isSubscribed == false){
+            if(appState.studentInfo.trialPeriod == false){
+                      return TrialModeEndMessage();
+            }else{
+              return _buildstory();
+            }
+          }else{
+              return _buildstory();
+          }
+        
       }
     }
 

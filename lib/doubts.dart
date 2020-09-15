@@ -113,6 +113,76 @@ Widget standardView(){
                           ),
                         ],
                       ),
+                          new Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          new Radio(
+                            value: 5,
+                            groupValue: standardValue,
+                            onChanged: standardValueChangeHandler,
+                          ),
+                          new Text(
+                            'REET(science/maths)',
+                            style: new TextStyle(fontSize: 16.0),
+                          ),
+                           new Radio(
+                            value: 7,
+                            groupValue: standardValue,
+                            onChanged: standardValueChangeHandler,
+                          ),
+                          new Text(
+                            'Patwar',
+                            style: new TextStyle(fontSize: 16.0),
+                          ),
+                       
+                        ],
+                      ),
+                      new Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          new Radio(
+                            value: 6,
+                            groupValue: standardValue,
+                            onChanged: standardValueChangeHandler,
+                          ),
+                          new Text(
+                            'REET(sst)',
+                            style: new TextStyle(fontSize: 16.0),
+                          ),
+                            new Radio(
+                            value: 10,
+                            groupValue: standardValue,
+                            onChanged: standardValueChangeHandler,
+                          ),
+                          new Text(
+                            'High Court class IV',
+                            style: new TextStyle(fontSize: 16.0),
+                          ),       
+                        ],
+                      ),
+                      new Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                         new Radio(
+                            value: 9,
+                            groupValue: standardValue,
+                            onChanged: standardValueChangeHandler,
+                          ),
+                          new Text(
+                            'Constable',
+                            style: new TextStyle(fontSize: 16.0),
+                          ),
+                            new Radio(
+                            value: 11,
+                            groupValue: standardValue,
+                            onChanged: standardValueChangeHandler,
+                          ),
+                          new Text(
+                            'High Court LDC',
+                            style: new TextStyle(fontSize: 16.0),
+                          ),   
+                        ],
+                      ),
                                 ]
                             ),
                         ),
@@ -197,7 +267,6 @@ Widget standardView(){
                 ),
             ),
     );
-
   }
 
    Widget subjectView11(){
@@ -289,8 +358,582 @@ Widget standardView(){
                 ),
             ),
     );
+  }
+
+  Widget reetSMView(){
+    return Padding(
+            padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
+            child:Card(
+                color:Colors.red,
+                elevation: 15,
+                  child: 
+                    Material(
+                      child: InkWell(
+                        onTap: ()=> null,
+                          child:Container(
+                              color: primaryColor,
+                              child:
+                              Column(
+                                children:[
+                                  new Text(
+                                      'Subjects :',
+                                      style: new TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18.0,
+                                      ),
+                                  ),
+
+                                       new Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          new Radio(
+                            value: 7,
+                            groupValue: subjectValue,
+                            onChanged: subjectValueChangeHandler,
+                          ),
+                          new Text(
+                            'Hindi',
+                            style: new TextStyle(fontSize: 16.0),
+                          ),
+                          new Radio(
+                            value: 8,
+                            groupValue: subjectValue,
+                            onChanged: subjectValueChangeHandler,
+                          ),
+                          new Text (
+                            'English',
+                            style: new TextStyle(
+                              fontSize: 16.0,
+                            ),
+                          ),
+                          new Radio(
+                            value: 10,
+                            groupValue: subjectValue,
+                            onChanged: subjectValueChangeHandler,
+                          ),
+                          new Text (
+                            'Science',
+                            style: new TextStyle(
+                              fontSize: 16.0,
+                            ),
+                          ),
+                                      ],
+                      ),
+                                       new Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          new Radio(
+                            value: 9,
+                            groupValue: subjectValue,
+                            onChanged: subjectValueChangeHandler,
+                          ),
+                          new Text(
+                            'Psychology',
+                            style: new TextStyle(fontSize: 16.0),
+                          ),
+                          new Radio(
+                            value: 3,
+                            groupValue: subjectValue,
+                            onChanged: subjectValueChangeHandler,
+                          ),
+                          new Text (
+                            'Mathematics',
+                            style: new TextStyle(
+                              fontSize: 16.0,
+                            ),
+                          ),
+                                      ],
+                      ),
+                                ]
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+    );
+  }
+  Widget constableView(){
+    return Padding(
+            padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
+            child:Card(
+                color:Colors.red,
+                elevation: 15,
+                  child: 
+                    Material(
+                      child: InkWell(
+                        onTap: ()=> null,
+                          child:Container(
+                              color: primaryColor,
+                              child:
+                              Column(
+                                children:[
+                                  new Text(
+                                      'Subjects :',
+                                      style: new TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18.0,
+                                      ),
+                                  ),
+
+                                       new Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          new Radio(
+                            value: 12,
+                            groupValue: subjectValue,
+                            onChanged: subjectValueChangeHandler,
+                          ),
+                          new Text(
+                            'Rajasthan-GK',
+                            style: new TextStyle(fontSize: 16.0),
+                          ),
+                          new Radio(
+                            value: 11,
+                            groupValue: subjectValue,
+                            onChanged: subjectValueChangeHandler,
+                          ),
+                          new Text (
+                            'India -GK',
+                            style: new TextStyle(
+                              fontSize: 16.0,
+                            ),
+                          ),
+                       ],
+                      ),
+                                       new Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          new Radio(
+                            value: 13,
+                            groupValue: subjectValue,
+                            onChanged: subjectValueChangeHandler,
+                          ),
+                          new Text(
+                            'Reasoning',
+                            style: new TextStyle(fontSize: 16.0),
+                          ),
+                          new Radio(
+                            value: 14,
+                            groupValue: subjectValue,
+                            onChanged: subjectValueChangeHandler,
+                          ),
+                          new Text (
+                            'Computer',
+                            style: new TextStyle(
+                              fontSize: 16.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                  new Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                            new Radio(
+                            value: 10,
+                            groupValue: subjectValue,
+                            onChanged: subjectValueChangeHandler,
+                          ),
+                          new Text (
+                            'Science',
+                            style: new TextStyle(
+                              fontSize: 16.0,
+                            ),
+                          ),
+                          new Radio(
+                            value: 16,
+                            groupValue: subjectValue,
+                            onChanged: subjectValueChangeHandler,
+                          ),
+                          new Text (
+                            'Kanuni Prabdhan',
+                            style: new TextStyle(
+                              fontSize: 16.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                                ]
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+    );
+  }
+ 
+  Widget reetSSTView(){
+    return Padding(
+            padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
+            child:Card(
+                color:Colors.red,
+                elevation: 15,
+                  child: 
+                    Material(
+                      child: InkWell(
+                        onTap: ()=> null,
+                          child:Container(
+                              color: primaryColor,
+                              child:
+                              Column(
+                                children:[
+                                  new Text(
+                                      'Subjects :',
+                                      style: new TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18.0,
+                                      ),
+                                  ),
+
+                                       new Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          new Radio(
+                            value: 7,
+                            groupValue: subjectValue,
+                            onChanged: subjectValueChangeHandler,
+                          ),
+                          new Text(
+                            'Hindi',
+                            style: new TextStyle(fontSize: 16.0),
+                          ),
+                          new Radio(
+                            value: 8,
+                            groupValue: subjectValue,
+                            onChanged: subjectValueChangeHandler,
+                          ),
+                          new Text (
+                            'English',
+                            style: new TextStyle(
+                              fontSize: 16.0,
+                            ),
+                          ),
+                          new Radio(
+                            value: 11,
+                            groupValue: subjectValue,
+                            onChanged: subjectValueChangeHandler,
+                          ),
+                          new Text (
+                            'India GK',
+                            style: new TextStyle(
+                              fontSize: 16.0,
+                            ),
+                          ),
+                                      ],
+                      ),
+                                       new Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          new Radio(
+                            value: 9,
+                            groupValue: subjectValue,
+                            onChanged: subjectValueChangeHandler,
+                          ),
+                          new Text(
+                            'Psychology',
+                            style: new TextStyle(fontSize: 16.0),
+                          ),
+                          new Radio(
+                            value: 12,
+                            groupValue: subjectValue,
+                            onChanged: subjectValueChangeHandler,
+                          ),
+                          new Text (
+                            'Rajasthan GK',
+                            style: new TextStyle(
+                              fontSize: 16.0,
+                            ),
+                          ),
+                                      ],
+                      ),
+                                ]
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+    );
+  }
+ 
+ Widget patwarView(){
+    return Padding(
+            padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
+            child:Card(
+                color:Colors.red,
+                elevation: 15,
+                  child: 
+                    Material(
+                      child: InkWell(
+                        onTap: ()=> null,
+                          child:Container(
+                              color: primaryColor,
+                              child:
+                              Column(
+                                children:[
+                                  new Text(
+                                      'Subjects :',
+                                      style: new TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18.0,
+                                      ),
+                                  ),
+
+                                       new Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          new Radio(
+                            value: 7,
+                            groupValue: subjectValue,
+                            onChanged: subjectValueChangeHandler,
+                          ),
+                          new Text(
+                            'Hindi',
+                            style: new TextStyle(fontSize: 16.0),
+                          ),
+                          new Radio(
+                            value: 8,
+                            groupValue: subjectValue,
+                            onChanged: subjectValueChangeHandler,
+                          ),
+                          new Text (
+                            'English',
+                            style: new TextStyle(
+                              fontSize: 16.0,
+                            ),
+                          ),
+                          new Radio(
+                            value: 10,
+                            groupValue: subjectValue,
+                            onChanged: subjectValueChangeHandler,
+                          ),
+                          new Text (
+                            'Science',
+                            style: new TextStyle(
+                              fontSize: 16.0,
+                            ),
+                          ),
+                                      ],
+                      ),
+                   new Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          new Radio(
+                            value: 3,
+                            groupValue: subjectValue,
+                            onChanged: subjectValueChangeHandler,
+                          ),
+                          new Text (
+                            'Mathematics',
+                            style: new TextStyle(
+                              fontSize: 16.0,
+                            ),
+                          ),
+                            new Radio(
+                            value: 13,
+                            groupValue: subjectValue,
+                            onChanged: subjectValueChangeHandler,
+                          ),
+                          new Text(
+                            'Reasoning',
+                            style: new TextStyle(fontSize: 16.0),
+                          ),
+                                      ],
+                      ),
+                   new Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          new Radio(
+                            value: 14,
+                            groupValue: subjectValue,
+                            onChanged: subjectValueChangeHandler,
+                          ),
+                          new Text (
+                            'Computer',
+                            style: new TextStyle(
+                              fontSize: 16.0,
+                            ),
+                          ),
+                            new Radio(
+                            value: 12,
+                            groupValue: subjectValue,
+                            onChanged: subjectValueChangeHandler,
+                          ),
+                          new Text(
+                            'Rajasthan GK',
+                            style: new TextStyle(fontSize: 16.0),
+                          ),
+                       ],
+                      ),
+                   new Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          new Radio(
+                            value: 15,
+                            groupValue: subjectValue,
+                            onChanged: subjectValueChangeHandler,
+                          ),
+                          new Text (
+                            'India Gk and Current GK',
+                            style: new TextStyle(
+                              fontSize: 16.0,
+                            ),
+                          ),
+                                      ],
+                      ),
+                                ]
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+    );
+  }
+
+  Widget highCourtClass4(){
+      return Padding(
+            padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
+            child:Card(
+                color:Colors.red,
+                elevation: 15,
+                  child: 
+                    Material(
+                      child: InkWell(
+                        onTap: ()=> null,
+                          child:Container(
+                              color: primaryColor,
+                              child:
+                              Column(
+                                children:[
+                                   new Text(
+                              'Subject:',
+                              style: new TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.0,
+                              ),
+                            ),
+                            new Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                new Radio(
+                                  value: 7,
+                                  groupValue: subjectValue,
+                                  onChanged: subjectValueChangeHandler,
+                                ),
+                                new Text(
+                                  'Hindi',
+                                  style: new TextStyle(fontSize: 16.0),
+                                ),
+                                new Radio(
+                                  value: 8,
+                                  groupValue: subjectValue,
+                                  onChanged: subjectValueChangeHandler,
+                                ),
+                                new Text(
+                                  'English',
+                                  style: new TextStyle(fontSize: 16.0),
+                                ),
+                              ],
+                            ),
+                            new Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                new Radio(
+                                  value: 17,
+                                  groupValue: subjectValue,
+                                  onChanged: subjectValueChangeHandler,
+                                ),
+                                new Text(
+                                  'Rajasthan Arts & Culture',
+                                  style: new TextStyle(fontSize: 16.0),
+                                ),
+                              ],
+                            ),
+                                ]
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+    );
 
   }
+  Widget highCourtLDC(){
+      return Padding(
+            padding: EdgeInsets.fromLTRB(15, 15, 15, 0),
+            child:Card(
+                color:Colors.red,
+                elevation: 15,
+                  child: 
+                    Material(
+                      child: InkWell(
+                        onTap: ()=> null,
+                          child:Container(
+                              color: primaryColor,
+                              child:
+                              Column(
+                                children:[
+                                   new Text(
+                              'Subject:',
+                              style: new TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18.0,
+                              ),
+                            ),
+                            new Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                new Radio(
+                                  value: 7,
+                                  groupValue: subjectValue,
+                                  onChanged: subjectValueChangeHandler,
+                                ),
+                                new Text(
+                                  'Hindi',
+                                  style: new TextStyle(fontSize: 16.0),
+                                ),
+                                new Radio(
+                                  value: 8,
+                                  groupValue: subjectValue,
+                                  onChanged: subjectValueChangeHandler,
+                                ),
+                                new Text(
+                                  'English',
+                                  style: new TextStyle(fontSize: 16.0),
+                                ),
+                              ],
+                            ),
+                            new Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                new Radio(
+                                  value: 11,
+                                  groupValue: subjectValue,
+                                  onChanged: subjectValueChangeHandler,
+                                ),
+                                new Text(
+                                  'India GK',
+                                  style: new TextStyle(fontSize: 16.0),
+                                ),
+                                new Radio(
+                                  value: 12,
+                                  groupValue: subjectValue,
+                                  onChanged: subjectValueChangeHandler,
+                                ),
+                                new Text(
+                                  'Rajasthan GK',
+                                  style: new TextStyle(fontSize: 16.0),
+                                ),
+                              ],
+                            ),
+                                ]
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+    );
+
+  }
+
 
  Widget submitButton(){
     return new Padding(
@@ -347,7 +990,20 @@ Widget _showErrorMessage() {
      return subjectView9();
    }else if(standardValue==3 || standardValue==4){
      return subjectView11();
-   }else{
+   }else if(standardValue==5){
+      return reetSMView();
+    }else if( standardValue==6){
+      return reetSSTView();
+    }else if( standardValue==7){
+      return patwarView();
+    }else if( standardValue==9){
+      return constableView();
+    }else if( standardValue==10){
+      return highCourtClass4();
+    }else if( standardValue==11){
+      return highCourtLDC();
+    } 
+   else{
      return Text("");
    }
  }
@@ -372,7 +1028,6 @@ Widget _showErrorMessage() {
   .listen((data) {
     data.documents.forEach((doc) { 
      DocumentSnapshot ds = doc;
-      print(ds['doubtId']);
     });
    });
      
@@ -387,10 +1042,8 @@ getData() async{
   .listen((data) {
     data.documents.forEach((doc) { 
      DocumentSnapshot ds = doc;
-      print(ds['doubtId']);
     });
    });
-     
 }
   
 

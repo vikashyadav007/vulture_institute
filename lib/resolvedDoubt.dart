@@ -28,7 +28,6 @@ class ResolvedDoubtState extends State<ResolvedDoubt>{
          padding: EdgeInsets.fromLTRB(0, 6, 0, 6),
          child: GestureDetector(
            onTap: (){
-             print("tap happen");
              Navigator.push(context, MaterialPageRoute(builder: (context)=>DoubtSolution(data[i])));
               },
            child: 
@@ -43,7 +42,6 @@ class ResolvedDoubtState extends State<ResolvedDoubt>{
                         onTap: ()=> null,
                           child:GestureDetector(
                             onTap: (){
-                               print("tap happen");
              Navigator.push(context, MaterialPageRoute(builder: (context)=>DoubtSolution(data[i])));
                             },
                             child:

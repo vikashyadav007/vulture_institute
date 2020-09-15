@@ -1,14 +1,11 @@
-import 'package:crackit/AddToFirebase.dart';
 import 'package:crackit/PDFScreen.dart';
-import 'package:crackit/VideoPlayerScreen.dart';
-import 'package:crackit/VideoPlayerScreen2.dart';
+import 'package:crackit/stateModel.dart';
+import 'package:crackit/stateWidget.dart';
 import 'package:flutter/material.dart';
-import 'package:crackit/youtubeScreen.dart';
-import 'package:video_player/video_player.dart';
 
 class StudyMaterialList extends StatefulWidget{
   String name;
-  Map<String,dynamic> mapData;
+  var mapData;
   StudyMaterialList(this.name,this.mapData);
   @override
   State<StatefulWidget> createState() {
@@ -17,12 +14,12 @@ class StudyMaterialList extends StatefulWidget{
 }
 
 class StudyMaterialListState extends State<StudyMaterialList>{
+  StateModel appState;
   bool _isloading = false;
    Widget something=Text("");
  List listVideo=[];
- VideoPlayerController _videoPlayerController;
  String name;
-  Map<String,dynamic> mapData;
+  var mapData;
   StudyMaterialListState(this.name,this.mapData);
 
      @override
@@ -31,11 +28,14 @@ class StudyMaterialListState extends State<StudyMaterialList>{
     setState(() {
       _isloading = true;
     });
-       if(mapData!=null){
-              for(int i=0;i<mapData.length;i++){
-                   var data = mapData[(i+1).toString()];
-                   listVideo.add(data);
-              }
+   
+    if(mapData==""){
+      setState(() {
+        _isloading = false;
+      });
+    }else{
+           if(mapData!=null){
+              listVideo = mapData.values.toList();
               setState(() {
                 _isloading = false;
               });
@@ -46,6 +46,8 @@ class StudyMaterialListState extends State<StudyMaterialList>{
                 _isloading = false;
               });
             }
+    }
+      
   }
 
   List<Widget> _getTaskTile(List list){
@@ -55,21 +57,32 @@ class StudyMaterialListState extends State<StudyMaterialList>{
       }
       else{   
      for(int i=0;i<list.length;i++){
+        var icon =appState.studentInfo.isSubscribed==true?Icons.ondemand_video:list[i]["demo"]==true?Icons.book:Icons.lock;
        var card = Card(
         child: Material(
           child: InkWell(
            onTap: (){
-             String name = "Dpp "+ (i+1).toString();
-           Navigator.push(context, MaterialPageRoute(builder: (context)=>PDFScreen(name,list[i]["exercise"],list[i]["solution"])));
+           String name = "Dpp "+ (i+1).toString();
+           print(appState.studentInfo.isSubscribed);
+           print(list[i]['demo']);
+              if(appState.studentInfo.isSubscribed){
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=>PDFScreen(name,list[i]["exercise"],list[i]["solution"])));
+             }else{
+                 if(list[i]['demo']==true){
+                 Navigator.push(context, MaterialPageRoute(builder: (context)=>PDFScreen(name,list[i]["exercise"],list[i]["solution"])));
+             }
+             }
+          //  Navigator.push(context, MaterialPageRoute(builder: (context)=>PDFScreen(name,list[i]["exercise"],list[i]["solution"])));
            },  
            child:Container(
                 color: Colors.white70,
                 child: ListTile(
-                 leading: Image.asset('assets/education.png',fit: BoxFit.cover,),
+                //  leading: Image.asset('assets/education.png',fit: BoxFit.cover,),
+                 leading: Icon(icon, size: 25, color: Colors.brown),
                   title: Text("Dpp "+ (i+1).toString(),
                   style: TextStyle(
-                    color:Colors.amber,
-                    fontSize: 25,
+                    color:Colors.black54,
+                     fontSize: 16,
                     fontWeight: FontWeight.w800,
                   )
                   ),
@@ -103,29 +116,6 @@ class StudyMaterialListState extends State<StudyMaterialList>{
     }
   }
 
-  Widget _showPrimaryButton() {
-    return new Padding(
-        padding: EdgeInsets.fromLTRB(0.0, 45.0, 0.0, 0.0),
-        child: SizedBox(
-          height: 40.0,
-          child: new RaisedButton(
-            elevation: 5.0,
-            shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(30.0)),
-            color: Colors.teal,
-            child: new Text('Watch video',
-                style: new TextStyle(fontSize: 20.0, color: Colors.white)),
-            onPressed:(){
-             // Navigator.push(context, MaterialPageRoute(builder: (context)=>YoutubeScreen("Video",videoUrl)));
-            //  Navigator.push(context, MaterialPageRoute(builder: (context)=>AddToFirebase()));
-            print(mapData);
-         
-
-            },
-          ),
-        ));
-  }
-
   Widget _showOriginal(){
     return _isloading?_showCircularProgress():
     SafeArea(child: 
@@ -146,6 +136,8 @@ class StudyMaterialListState extends State<StudyMaterialList>{
 
   @override
   Widget build(BuildContext context) {
+
+    appState = StateWidget.of(context).state;
     return 
     WillPopScope(
       onWillPop: (){

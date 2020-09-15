@@ -2,7 +2,7 @@ import 'package:crackit/demoClasses.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:crackit/home.dart';
+import 'package:crackit/home2.dart';
 import 'PDFScreen.dart';
 import 'package:crackit/Practice.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -18,8 +18,6 @@ class FirebaseRealTimeState extends State<FirebaseRealTime>{
   bool _isloading = false;
   List chapterList = [];
   String data="";
-  //final DBref = FirebaseDatabase.instance.reference();
-  // final DBref = FirebaseDatabase.instance.reference();
   final DBref = FirebaseDatabase().reference().child("LiveSchedule");
  
      _fetchFirestoreData() async{

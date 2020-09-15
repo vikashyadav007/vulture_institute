@@ -1,5 +1,4 @@
-import 'package:crackit/home.dart';
-import 'package:crackit/login.dart';
+import 'package:crackit/loginOption.dart';
 import 'package:crackit/splashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:crackit/colorValue.dart';
@@ -10,18 +9,16 @@ class MyApp extends StatelessWidget{
   Widget build(BuildContext context) {
     // TODO: implement build
     return MaterialApp(
-      title: 'Crack It',
+      title: 'Vulture Institute',
       theme: ThemeData(
         primaryColor: primaryColor,
       ),
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        //'/': (context)=>Home(false),
-        '/': (context)=>splashScreen(),
-        '/Login':(context) => Login(),
+        '/': (context)=>SplashScreen(),
+        '/Login':(context) => LoginOption(),
       },
     );
   }
-
 }

@@ -1,9 +1,6 @@
 import 'package:crackit/stateModel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-
 
 class StateWidget extends StatefulWidget{
   StateModel state;

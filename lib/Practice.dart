@@ -1,7 +1,13 @@
+import 'package:crackit/TestPage.dart';
+import 'package:crackit/TestSeries.dart';
 import 'package:crackit/colorValue.dart';
+import 'package:crackit/selectSubject.dart';
 import 'package:crackit/stateModel.dart';
 import 'package:crackit/stateWidget.dart';
+import 'package:crackit/values.dart';
 import 'package:flutter/material.dart';
+import 'TrialModeEndMessage.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Practice extends StatefulWidget{
   @override
@@ -18,6 +24,8 @@ class PracticeState extends State<Practice>{
   int standardValue=-1;
   int subjectValue=-1;
   int testOptionValue=-1;
+
+  bool view= true;
 
   void testOptionValueChangeHandler(int value){
     setState(() {
@@ -53,6 +61,14 @@ class PracticeState extends State<Practice>{
     super.initState();
   }
 
+showToast(){
+    Fluttertoast.showToast(
+                    msg: "No Test Available",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    fontSize: 20,
+                  );
+}
 
 Widget courseView(){
     return Padding(
@@ -588,21 +604,33 @@ Widget _showErrorMessage() {
             child: new Text('Submit',
                 style: new TextStyle(fontSize: 20.0, color: Colors.black)),
             onPressed:(){
-              if(courseValue != -1 && standardValue != -1 && testOptionValue!=-1){
-                if(testOptionValue==1 && subjectValue == -1){
-                     setState(() {
+              if(testOptionValue==-1){
+                  setState(() {
                   _errorMessage="Select above value";
                 });
-                }else{
-                    print("Every thing is fine");
-                }
-                    
-              }else{
-                setState(() {
-                  _errorMessage="Select above value";
-                });
-                  
+              }else if(testOptionValue ==1){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>SelectSubject(TESTSERIES)));
+              }else if(testOptionValue==2){
+                  setState(() {
+                    view = false;
+                  });
               }
+              // if(courseValue != -1 && standardValue != -1 && testOptionValue!=-1){
+              //   if(testOptionValue==1 && subjectValue == -1){
+              //        setState(() {
+              //     _errorMessage="Select above value";
+              //   });
+              //   }else{
+              //       print("Every thing is fine");
+              //       Navigator.push(context, MaterialPageRoute(builder: (context)=>TestPage()));
+
+              //   }
+                    
+              // }else{
+              //   setState(() {
+              //     _errorMessage="Select above value";
+              //   });
+              // }
             },
           ),
         ));
@@ -633,18 +661,29 @@ Widget _showErrorMessage() {
 
 
   Widget _createContent(){
-    return ListView(
+   if(appState.studentInfo.isSubscribed== false){
+        if(appState.studentInfo.trialPeriod == false){
+      return TrialModeEndMessage();
+    }
+    }
+         return ListView(
       children:[
-          courseView(),
-          standardView(),
+          // courseView(),
+          // standardView(),
           testOptionView(),
-         subjectView(),
+        //  subjectView(),
          submitButton(),
          _showErrorMessage(),
       ]
     );
+    
   }
 
+  Widget noTestShow(){
+    return Center(
+      child: Text("No Test Available Right now.",style:TextStyle(fontSize: 16)),
+    );
+  }
 
   
   @override
@@ -661,7 +700,8 @@ Widget _showErrorMessage() {
       appBar: AppBar(
         title: Text("Practice"),
       ),
-      body: _createContent(),
+      // body: noTestShow(),
+      body: view==true?_createContent():noTestShow(),
     )
     );
   }

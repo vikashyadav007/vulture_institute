@@ -8,17 +8,33 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:476752178603:android:60c40a2b2552a0a306f6ee",
+        "mobilesdk_app_id": "1:476752178603:android:9a590cb1f0912ea706f6ee",
         "android_client_info": {
-          "package_name": "com.example.crackit"
+          "package_name": "com.thedreamtech.vultureinstitute"
         }
       },
       "oauth_client": [
         {
-          "client_id": "476752178603-3e1bjkha17s36j9e4uo5h6eee5o1jk7b.apps.googleusercontent.com",
+          "client_id": "476752178603-pvscu24ud39cdr16amovl5h08hrr8tin.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.crackit",
+            "package_name": "com.thedreamtech.vultureinstitute",
+            "certificate_hash": "29b7a78f4e342914c47f99a6028b3b5f9dae3c3c"
+          }
+        },
+        {
+          "client_id": "476752178603-osqmvde3mv3h2i73c51a3bcgengdg7p7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thedreamtech.vultureinstitute",
+            "certificate_hash": "d4409037e0044559ccf0dd83c195feaf99ea04ea"
+          }
+        },
+        {
+          "client_id": "476752178603-3t29vcv822f642r0gtvrti7k8soeiv8v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.thedreamtech.vultureinstitute",
             "certificate_hash": "ce6f97b281c2a09d2856e4c89650eee245837309"
           }
         },

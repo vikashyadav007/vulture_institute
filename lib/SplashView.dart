@@ -1,12 +1,7 @@
+import 'package:crackit/values.dart';
 import 'package:flutter/material.dart';
 Widget SplashView(){
   return Container(
-        // decoration: BoxDecoration(
-        //   image: DecorationImage(
-        //     image: AssetImage('assets/background1.png'),
-        //     fit: BoxFit.cover
-        //     ),
-        // ),
           height: double.infinity,
           width: double.infinity,
           color: Colors.white,
@@ -18,7 +13,7 @@ Widget SplashView(){
                child:Hero(
                 tag: "main_logo",
                 child: Image.asset(
-                  'assets/logo.png',
+                  imageUrl,
                   // height: 200,
                   // width: 250,
                 ),

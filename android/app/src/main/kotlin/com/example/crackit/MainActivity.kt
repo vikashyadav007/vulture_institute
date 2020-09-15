@@ -1,4 +1,4 @@
-package com.example.crackit
+package com.thedreamtech.vultureinstitute
 
 import io.flutter.embedding.android.FlutterActivity
 

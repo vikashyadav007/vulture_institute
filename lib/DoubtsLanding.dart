@@ -34,7 +34,6 @@ class DoubtsLandingState extends State<DoubtsLanding>{
 
    final image = await ImagePicker.pickImage(source: ImageSource.camera);
    setState(() {
-     print(image);
      _image = image;
    });
  }
@@ -42,11 +41,10 @@ class DoubtsLandingState extends State<DoubtsLanding>{
  Future getImageGalary() async{
     final image = await ImagePicker.pickImage(source: ImageSource.gallery);
    setState(() {
-     print(image);
      _image = image;
    });
  }
-
+  
      @override
   void initState() {
     super.initState();
@@ -72,12 +70,10 @@ class DoubtsLandingState extends State<DoubtsLanding>{
                 style: new TextStyle(fontSize: 20.0, color: Colors.black)),
             onPressed:(){
                 if(textEditingController.text.isEmpty){
-                    print("This becomes true");
                   setState(() {
                     _errorMessage = "Please Explain your doubt";
                   });
                 }else{
-                  print("\n\nWorks fine");
                   setState(() {
                     _isloading = true;
                   });
@@ -119,7 +115,6 @@ class DoubtsLandingState extends State<DoubtsLanding>{
       'userId':uid,
       'doubtId':doubtId
     };
-   print(map);
    CollectionReference cr = Firestore.instance.collection('new_doubts');
    cr.add(map).then((value){
                   setState(() {
@@ -305,20 +300,17 @@ Widget _showErrorMessage() {
     child:Center(
       child: GestureDetector(
         onScaleStart: (ScaleStartDetails details){
-          print(details);
           _previousScale = _scale;
           setState(() {
             
           });
         },
         onScaleUpdate: (ScaleUpdateDetails details){
-          print(details);
           _scale = _previousScale * details.scale;
           setState(() {
           });
         },
         onScaleEnd: (ScaleEndDetails details){
-          print(details);
           _previousScale = 1.0;
           setState(() {
           });

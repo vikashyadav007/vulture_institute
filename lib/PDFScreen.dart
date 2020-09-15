@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_plugin_pdf_viewer/flutter_plugin_pdf_viewer.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 
 class PDFScreen extends StatefulWidget{
@@ -18,7 +19,7 @@ class PDFScreenState extends State<PDFScreen>{
   String exercise;
   String solution;
   PDFDocument document;
-   bool exerciseView = true;
+  bool exerciseView = true;
   PDFScreenState(this.name,this.exercise,this.solution);
   bool _isloading = false;
   bool _isEmpty = false;
@@ -26,16 +27,14 @@ class PDFScreenState extends State<PDFScreen>{
 
   
 loadDocument(String url) async {
+  if(url!=null)
    await PDFDocument.fromURL(
           url).then((value){
-            print("JUst finished");
            setState(() {
              document = value;
              _isloading = false;
            });
           });
-
-   
   }
 
    
@@ -59,7 +58,7 @@ loadDocument(String url) async {
     );
   }
   Center _showEmptyMessage(){
-    return Center(child: Text("Not pdf found"),
+    return Center(child: Text("No pdf found"),
       
     );
   }
@@ -90,15 +89,24 @@ loadDocument(String url) async {
                FlatButton(
                  color: Colors.blue,
                  onPressed: (){
-                    setState(() {
-                      _isloading = true;
-                    });
                     if(exerciseView)
                     {
-                     loadDocument(solution);
-                     setState(() {
-                       exerciseView = false;
-                     });
+                      if(solution.isNotEmpty){
+                        setState(() {
+                          _isloading = true;
+                        });
+                         loadDocument(solution);
+                          setState(() {
+                              exerciseView = false;
+                          });
+                      }else{
+                        Fluttertoast.showToast(
+                          msg: "No solution for this exercise right now",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.BOTTOM,
+                          fontSize: 20,
+                        );
+                      }
                     }
                      else{
                        loadDocument(exercise);
@@ -106,7 +114,6 @@ loadDocument(String url) async {
                        exerciseView = true;
                      });
                      }
-                    
                  },
                  child: Container(
                    alignment: Alignment.center,

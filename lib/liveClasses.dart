@@ -1,8 +1,11 @@
+import 'package:crackit/stateModel.dart';
+import 'package:crackit/stateWidget.dart';
 import 'package:crackit/youtubeScreen.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:crackit/TrialModeEndMessage.dart';
+
 
 class LiveClasses extends StatefulWidget{
   @override
@@ -12,24 +15,15 @@ class LiveClasses extends StatefulWidget{
 }
 
 class LiveClassesState extends State<LiveClasses>{
+  StateModel appState;
   bool _isloading = false;
   List chapterList = [];
   final _firebaseRef = FirebaseDatabase().reference().child("LiveSchedule");
   Widget something= Text("");
   static YoutubePlayerController _controller;
-  // Widget magic =  Expanded(
-  //             flex: 1,
-  //             child:  Padding(
-  //               padding: EdgeInsets.all(4),
-  //             child:
-  //             YoutubePlayer(
-  //               controller: _controller,
-  //               ),
-  //           )
-  //            );
-
-  var liveUrl= "https://youtu.be/h-EpRhNzpuU";
-static String videoUrl = "https://www.youtube.com/watch?v=IkzlYyqexB8";
+  Color activeColor = Colors.blue;
+  Color normalColor = Colors.black54;
+  int _active = -1;
 
      @override
   void initState() {
@@ -44,56 +38,21 @@ static String videoUrl = "https://www.youtube.com/watch?v=IkzlYyqexB8";
     );
   }
 
- Widget _builtContainer(){
-    if(_isloading==true){
-     return _showCircularProgress();
-    }else{
-     return _showOriginal();
-    }
-  }
 
-  Widget _showPrimaryButton() {
-    return new Padding(
-        padding: EdgeInsets.fromLTRB(0.0, 45.0, 0.0, 0.0),
-        child: SizedBox(
-          height: 40.0,
-          child: new RaisedButton(
-            elevation: 5.0,
-            shape: new RoundedRectangleBorder(
-                borderRadius: new BorderRadius.circular(30.0)),
-            color: Colors.teal,
-            child: new Text('Watch Live Classes',
-                style: new TextStyle(fontSize: 20.0, color: Colors.white)),
-            onPressed:() async{
-
-              if (await canLaunch(videoUrl)) {
-                      await launch(videoUrl);
-               } else {
-                    throw 'Could not launch $liveUrl';
-               }
-
-            },
-          ),
-        ));
-  }
-
-  Widget _showOriginal(){
-    return _isloading?_showCircularProgress():
-     Center(
-      child:_showPrimaryButton(),
-    );
-  }
-
-  Widget createContainerView(var item){
+  Widget createContainerView(var item,int index){
     return Card(
         child: Material(
           child: InkWell(
            onTap: (){
            setState(() {
+             _active = index;
              if(_controller !=null){
-               something = Text("");
+               something = Expanded(
+              flex: 4,
+              child:  _showCircularProgress(),
+            );
                _controller = null;
-              Future.delayed(Duration(microseconds: 5),(){
+              Future.delayed(Duration(seconds: 1),(){
                 setState(() {
                    _controller = YoutubePlayerController(
                     initialVideoId: YoutubePlayer.convertUrlToId(item["Url"].toString()),
@@ -104,7 +63,7 @@ static String videoUrl = "https://www.youtube.com/watch?v=IkzlYyqexB8";
                     )
                     );
               something = Expanded(
-              flex: 1,
+              flex: 4,
               child:  YoutubeScreen(item["Title"].toString(), _controller),
             );
                 });
@@ -122,7 +81,7 @@ static String videoUrl = "https://www.youtube.com/watch?v=IkzlYyqexB8";
                     )
                     );
               something = Expanded(
-              flex: 1,
+              flex: 4,
               child:  YoutubeScreen(item["Title"].toString(), _controller),
             );
              }
@@ -132,11 +91,12 @@ static String videoUrl = "https://www.youtube.com/watch?v=IkzlYyqexB8";
            child:Container(
                 color: Colors.white70,
                 child: ListTile(
-                 leading: Image.asset('assets/education.png',fit: BoxFit.cover,),
+                //  leading: Image.asset('assets/education.png',fit: BoxFit.cover,),
+                 leading: Icon(Icons.live_tv,size: 25,color: Colors.red,),
                   title: Text(item["Title"].toString(),
                   style: TextStyle(
-                    color:Colors.amber,
-                    fontSize: 25,
+                    color:_active==index?activeColor:normalColor,
+                    fontSize: 16,
                     fontWeight: FontWeight.w800,
                   )
                   ),
@@ -166,12 +126,59 @@ static String videoUrl = "https://www.youtube.com/watch?v=IkzlYyqexB8";
         ),
     
     );
-
-
   }
 
+  Widget buildContent(){
+    return SafeArea(
+        child: Column(
+          children: [
+            something,
+            Expanded(
+              flex: 6,
+              child: StreamBuilder(
+                    stream:_firebaseRef.onValue,
+                    builder: (context,snap){
+                          if(snap.hasData && !snap.hasError && snap.data.snapshot.value !=null){
+                           
+                            Map data = snap.data.snapshot.value;
+                            List item=[];
+                            item = data.values.toList();
+                            return ListView.builder(
+                              itemCount:  item.length,
+                              itemBuilder: (context,index){
+                                return createContainerView(item[index],index);
+                              }
+                            );
+                       
+                          }else if(snap.data ==null){
+                          return Center(
+                            child:  Text("No data"),
+                          );
+                        }            
+                        return Center(child: CircularProgressIndicator(),);
+                    }
+        ),)
+          ],
+          )
+          );
+  }
+
+
+Widget selection(){
+   if(appState.studentInfo.isSubscribed == false){
+            if(appState.studentInfo.trialPeriod == false){
+                      return TrialModeEndMessage();
+            }else{
+              return buildContent();
+            }
+          }else{
+              return buildContent();
+          }
+        
+}
   @override
   Widget build(BuildContext context) {
+    appState = StateWidget.of(context).state;
     return 
     WillPopScope(
       onWillPop: (){
@@ -181,38 +188,9 @@ static String videoUrl = "https://www.youtube.com/watch?v=IkzlYyqexB8";
   child:
     Scaffold(
       appBar: AppBar(
-        title: Text("Demo Classes"),
+        title: Text("Live Classes"),
       ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            something,
-            Expanded(
-              flex: 2,
-              child: StreamBuilder(
-        stream:_firebaseRef.onValue,
-        builder: (context,snap){
-          if(snap.hasData && !snap.hasError && snap.data.snapshot.value !=null){
-            Map data = snap.data.snapshot.value;
-            List item=[];
-            item = data.values.toList();
-            // data.forEach((key, value) =>item.add({"key":key, ...data}));
-            return ListView.builder(
-              itemCount:  item.length,
-              itemBuilder: (context,index){
-                 return createContainerView(item[index]);
-              }
-            );
-          }else{
-          return Center(
-            child:  Text("No data"),
-          );
-        }
-        }
-        ),)
-          ],
-          )
-          )
+      body: selection(), 
     )
     );
   }

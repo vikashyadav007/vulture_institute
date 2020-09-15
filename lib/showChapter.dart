@@ -1,12 +1,11 @@
+import 'package:crackit/TestPage.dart';
+import 'package:crackit/TestPageLanding.dart';
 import 'package:crackit/demoClasses.dart';
 import 'package:crackit/studyMaterialList.dart';
 import 'package:crackit/values.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:crackit/home.dart';
-import 'PDFScreen.dart';
-import 'package:crackit/Practice.dart';
+
 
 class ShowChapter extends StatefulWidget{
   String choice;
@@ -36,32 +35,47 @@ class ShowChapterState extends State<ShowChapter>{
       }
       else{   
      for(int i=0;i<list.length;i++){
-       var _padding = Padding(
-         padding: EdgeInsets.fromLTRB(0, 6, 0, 6),
-         child: GestureDetector(
+          var card = Card(
+        child: Material(
+          child: InkWell(
            onTap: (){
-
-             if(choice ==STUDYMATERIAL){
+              if(choice ==STUDYMATERIAL){
                  Navigator.push(context, MaterialPageRoute(builder: (context) => StudyMaterialList(list[i]['name'],list[i]["dpp"])));
              }else if(choice == VIDEOLECTURE){
                Navigator.push(context,MaterialPageRoute(builder: (context)=>DemoClasses(list[i]["lectures"],)));
-             }
-              },
-           child: 
-           Chip(
-           elevation: 5,
-           label: Container(
-             width: 250,
-             height:40,
-             child:Center(child:Text(list[i]["name"],style: TextStyle(fontSize: 25,color: Colors.black54),),)),
-            backgroundColor: (Colors.amber),
-           avatar: CircleAvatar(
-           backgroundColor: Colors.grey.shade100,
-           child: Text(list[i]["chapter"]),
-           ),
-         ),)
-         );
-         widget.add(_padding);
+             }else if(choice == TESTSERIES){
+               Navigator.push(context, MaterialPageRoute(builder: (context) => TestPageLanding(list[i]['name'],list[i]["testSeries"])));
+           
+                 }
+           },  
+           child:Container(
+                color: Colors.white70,
+                child:Row(
+                  children: [
+                      Expanded(
+                        flex: 1,
+                        child:Container(
+                         color: Colors.green,
+                           padding:EdgeInsets.all(15),
+                          child: Text((i+1).toString(),style:TextStyle(fontSize: 20,color:Colors.black87,fontWeight:FontWeight.w800 )),
+                        ) ,
+                        ),
+                      Expanded(
+                        flex: 9,
+                        child:Container(
+                          color: Colors.amber,
+                          padding:EdgeInsets.all(15),
+                          child: Text(list[i]["name"],style:TextStyle(fontSize: 16,color: Colors.black54,fontWeight: FontWeight.w800,)),
+                        ) ,
+                        ),
+                ],
+                )
+              ), 
+          ),
+        ),
+    
+    );
+         widget.add(card);
      }
       }
       return widget;
@@ -80,13 +94,7 @@ class ShowChapterState extends State<ShowChapter>{
         }
         else{
           setState(() {
-          var mapValue = value.data;
-          var innerMapList = [];
-          for(int i=1;i<value.data.length+1;i++){
-            innerMapList.add(mapValue[i.toString()]);
-          }
-          chapterList = innerMapList;
-         // print(innerMapList);
+          chapterList = value.data.values.toList();
              _isloading = false;
           });
         }
